@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 
 namespace TitovFT210007Lab4
 {
@@ -28,22 +29,15 @@ namespace TitovFT210007Lab4
         }
 
     }
-     class DistanseRateToMaxComparer : IComparer
+     class DistanseRateComparer : IComparer
     {
-        public int DistanseRateToMax(Taxi taxi)
+        public int DistanseRate(Taxi taxi)
         {
             return taxi.distRate;
         }
         public int Compare(object x, object y)
         {
-            if (DistanseRateToMax((Taxi)x) > DistanseRateToMax((Taxi)y))
-            {
-                return -1;  
-            }
-            else if (DistanseRateToMax((Taxi)x) < DistanseRateToMax((Taxi)y)){
-                return 1;
-            }
-            else return 0;
+            return DistanseRate((Taxi)x).CompareTo(DistanseRate((Taxi)y)); 
         }
     }
     class DistanseToZeroComparer : IComparer
@@ -55,17 +49,7 @@ namespace TitovFT210007Lab4
 
         public int Compare(object x, object y)
         {
-            if (DistanseToZero((Employee)x) > DistanseToZero((Employee)y))
-            {
-                return 1;
-            }
-
-            else if (DistanseToZero((Employee)x) < DistanseToZero((Employee)y))
-            {
-                return -1;
-            }
-
-            else return 0;
+            return DistanseToZero((Employee)x).CompareTo(DistanseToZero((Employee)y));    
         }
     }
     class Employee
@@ -94,7 +78,7 @@ namespace TitovFT210007Lab4
         {
             int totalSum = 0;
             
-            DistanseRateToMaxComparer distanseRateToMaxComparer = new DistanseRateToMaxComparer();
+            DistanseRateComparer distanseRateToMaxComparer = new DistanseRateComparer();
             DistanseToZeroComparer distanseToZeroComparer = new DistanseToZeroComparer();
 
             Console.WriteLine("Enter the quantity of employes: ");
@@ -120,7 +104,9 @@ namespace TitovFT210007Lab4
             }
 
             taxi.BubbleSort(distanseRateToMaxComparer);
+            Array.Reverse(taxi);
             emp.BubbleSort(distanseToZeroComparer);
+            
 
             Console.WriteLine("Taxi number | Price for distanse ");
 
