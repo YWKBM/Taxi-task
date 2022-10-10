@@ -8,6 +8,7 @@ Taxi-task
 оптимизированное соответсвие номеров машин и цен за поездки сотрудников, общую сумму в рублях и сумму прописью c указанием валюты.
 # Как использовать 
 Запустить код в редакторе Visual Studio или запустить exe файл программы.
-![image](https://user-images.githubusercontent.com/89938515/193570172-c5f6f29f-93a4-44e5-b710-de377ab2b25a.png)
-![image](https://user-images.githubusercontent.com/89938515/193570788-c72b1060-cbcf-42e2-abaa-edc506af13c6.png)
-![image](https://user-images.githubusercontent.com/89938515/193571211-98d22784-7d1f-4679-99ea-26e141459579.png)
+![image](https://user-images.githubusercontent.com/89938515/194848429-0982674f-0a1f-40ba-999c-de0135b9b55a.png)
+![image](https://user-images.githubusercontent.com/89938515/194848650-e99b1764-6103-4df5-ba4a-61408aeda0bf.png)
+![image](https://user-images.githubusercontent.com/89938515/194848810-1f06fd53-b852-46da-a16d-81673bf5c9d3.png)
+
