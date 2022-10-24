@@ -6,7 +6,7 @@ namespace TitovFT210007Lab4
 {
     static class ArrayExtensions
     {
-        public static void Swap(this Array arr, int i, int j)
+        public static void Swap(this Array arr, int i, int j) //расширение класса Array
         {
             object temp = arr.GetValue(i);
             arr.SetValue(arr.GetValue(j), i);
@@ -29,7 +29,7 @@ namespace TitovFT210007Lab4
         }
 
     }
-     class DistanseRateComparer : IComparer
+     class DistanseRateComparer : IComparer //Сравнение для тарифов 
     {
         public int DistanseRate(Taxi taxi)
         {
@@ -40,7 +40,7 @@ namespace TitovFT210007Lab4
             return DistanseRate((Taxi)x).CompareTo(DistanseRate((Taxi)y)); 
         }
     }
-    class DistanseToZeroComparer : IComparer
+    class DistanseToZeroComparer : IComparer //Сравнение для расстояний до дома 
     {
         public int DistanseToZero(Employee employee)
         {
@@ -82,41 +82,49 @@ namespace TitovFT210007Lab4
             DistanseToZeroComparer distanseToZeroComparer = new DistanseToZeroComparer();
 
             Console.WriteLine("Enter the quantity of employes: ");
-            int empsQuantity = int.Parse(Console.ReadLine());
-
-            Employee[] emp = new Employee[empsQuantity];
-            Taxi[] taxi = new Taxi[empsQuantity];
-
-            Console.WriteLine("Enter the employes distance to home: ");
-            for(int i = 0; i < empsQuantity; i++)
+            try //обработка ошибок ввода
             {
-                Console.WriteLine("Emloye's distance {0}", i + 1);
-                emp[i] = new Employee(int.Parse(Console.ReadLine()));    
+                int empsQuantity = int.Parse(Console.ReadLine());
+
+
+                Employee[] emp = new Employee[empsQuantity];
+                Taxi[] taxi = new Taxi[empsQuantity];
+
+                Console.WriteLine("Enter the employes distance to home: ");
+                for (int i = 0; i < empsQuantity; i++) //формирование массива сотрудников
+                {
+                    Console.WriteLine("Emloye's distance {0}", i + 1);
+                    emp[i] = new Employee(int.Parse(Console.ReadLine()));
+                }
+
+                for (int i = 0; i < empsQuantity; i++) //формирование массива такси
+                {
+                    Console.WriteLine("Enter the number of taxi car: ");
+                    int num = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter the rate for distance: ");
+                    int rate = int.Parse(Console.ReadLine());
+                    taxi[i] = new Taxi(num, rate);
+                }
+
+                taxi.BubbleSort(distanseRateToMaxComparer); 
+                Array.Reverse(taxi);
+                emp.BubbleSort(distanseToZeroComparer);
+
+
+                Console.WriteLine("Taxi number | Price for distanse ");
+
+                for (int i = 0; i < empsQuantity; i++) //вывод результирующего соответствия: номер такси - цена за поездку
+                {
+                    totalSum += taxi[i].distRate * emp[i].distnace;
+                    Console.WriteLine("{0} {1}", taxi[i].number, taxi[i].distRate * emp[i].distnace);
+                }
+            }catch(FormatException e)
+            {
+                Console.WriteLine("Incorect value!");
+                return;
             }
 
-            for (int i = 0; i < empsQuantity; i++)
-            {
-                Console.WriteLine("Enter the number of taxi car: ");
-                int num = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter the rate for distance: ");
-                int rate = int.Parse(Console.ReadLine());
-                taxi[i] = new Taxi(num, rate);
-            }
-
-            taxi.BubbleSort(distanseRateToMaxComparer);
-            Array.Reverse(taxi);
-            emp.BubbleSort(distanseToZeroComparer);
-            
-
-            Console.WriteLine("Taxi number | Price for distanse ");
-
-            for (int i = 0; i < empsQuantity; i++)
-            {
-                totalSum += taxi[i].distRate * emp[i].distnace;
-                Console.WriteLine("{0} {1}", taxi[i].number, taxi[i].distRate * emp[i].distnace);
-            }
-
-            Console.WriteLine("Total sum: {0} rub", totalSum);
+            Console.WriteLine("Total sum: {0} rub", totalSum); //вывод общей суммы
             ToWord plur = new ToWord();
             Console.WriteLine(plur.DigitToWord(totalSum));
         }
